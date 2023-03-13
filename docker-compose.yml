@@ -3,13 +3,13 @@ version: '3.8'
 services:
   db:
     image: mysql
-    container_name: companydb
+    container_name: fifadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: mypassword
-      MYSQL_DATABASE: companydb
-      MYSQL_USER: fazt
-      MYSQL_PASSWORD: faztpassword
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: fifa
+      MYSQL_USER: root
+      MYSQL_PASSWORD: mysql
     ports:
       - 3306:3306
     volumes:
