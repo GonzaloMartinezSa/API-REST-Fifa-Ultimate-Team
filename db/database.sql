@@ -26,11 +26,33 @@ create table FaceStats(
     primary key(id_face_stats)
 );
 
+create table Pais(
+    id_pais int NOT NULL AUTO_INCREMENT,
+    nombre_pais nvarchar(50),
+    primary key(id_pais)
+);
+
+create table Liga(
+    id_liga int NOT NULL AUTO_INCREMENT,
+    nombre_liga nvarchar(50),
+    primary key(id_liga)
+);
+
+create table Equipo(
+    id_equipo int NOT NULL AUTO_INCREMENT,
+    id_liga int,
+    nombre_equipo nvarchar(50),
+    primary key(id_equipo),
+    foreign key(id_liga) references Liga(id_liga)
+);
+
 create table Carta(
 	id_carta int NOT NULL AUTO_INCREMENT,
     id_player int,
     id_tipo int,
     id_face_stats int,
+    id_equipo int,
+    id_nacionalidad int,
     posicion nvarchar(3),
     skills smallint,
     weak_foot smallint,
@@ -40,7 +62,9 @@ create table Carta(
     primary key(id_carta),
     foreign key(id_player) references Player(id_player),
     foreign key(id_tipo) references Tipo(id_tipo),
-    foreign key(id_face_stats) references FaceStats(id_face_stats)
+    foreign key(id_face_stats) references FaceStats(id_face_stats),
+    foreign key(id_equipo) references Equipo(id_equipo),
+    foreign key(id_nacionalidad) references Pais(id_pais)
 );
 
 create table Usuario(
