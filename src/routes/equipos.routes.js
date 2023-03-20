@@ -1,21 +1,19 @@
 import { Router } from "express";
 import {
-  createCarta,
-  deleteCarta,
-  getCarta,
-  getCartas,
-  getCartasDeTipo,
-  updateCarta,
-} from "../controllers/cartas.controller.js";
+  createEquipo,
+  deleteEquipo,
+  getEquipo,
+  getEquipos,
+  updateEquipo,
+} from "../controllers/equipos.controller.js";
 
 const router = Router();
 
-// Cartas
-router.get("/cartas", getCartas);
-router.get("/cartas/:id", getCarta);
-router.get("/cartas/:tipo", getCartasDeTipo)
-router.delete("/cartas/:id", deleteCarta);
-router.post("/cartas/:tipo/:player", createCarta);
-router.patch("/tipos/:id", updateCarta);
+// Equipos
+router.get("/equipos", getEquipos);
+router.get("/equipos/:id", getEquipo);
+router.delete("/equipos/:id", deleteEquipo);
+router.post("/equipos", createEquipo);
+router.patch("/equipos/:id", updateEquipo);
 
 export default router;

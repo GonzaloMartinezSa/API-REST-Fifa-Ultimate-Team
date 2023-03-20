@@ -1,11 +1,11 @@
 import { pool } from "../db.js";
 import { get } from "../crud/crud.js";
 
-export const getCartas = async (req, res) => {
+export const getUsuarios = async (req, res) => {
   return get(res, "Usuario");
 };
 
-export const getCarta = async (req, res) => {
+export const getUsuario = async (req, res) => {
   try {
     const { id } = req.params;
     const [rows] = await pool.query("SELECT * FROM carta WHERE id_carta = ?", [
@@ -22,25 +22,7 @@ export const getCarta = async (req, res) => {
   }
 };
 
-export const getCartasDeTipo = async (req, res) => {
-  try {
-    const { tipo } = req.params;
-    const [rows] = await pool.query("SELECT * FROM carta c JOIN tipo t ON c.id_tipo = t_id_tipo " 
-    + "WHERE tipo = ?", [
-      tipo,
-    ]);
-
-    if (rows.length <= 0) {
-      return res.status(404).json({ message: "Carta not found" });
-    }
-
-    res.json(rows[0]);
-  } catch (error) {
-    return res.status(500).json({ message: "Something went wrong" });
-  }
-};
-
-export const deleteCarta = async (req, res) => {
+export const deleteUsuario = async (req, res) => {
   try {
     const { id } = req.params;
     const [rows] = await pool.query("DELETE FROM carta WHERE id_carta = ?", [id]);
@@ -55,9 +37,7 @@ export const deleteCarta = async (req, res) => {
   }
 };
 
-// TODO
-
-export const createCarta = async (req, res) => {
+export const createUsuario = async (req, res) => {
   try {
     const { tipo } = req.body;
     const [rows] = await pool.query(
@@ -69,7 +49,7 @@ export const createCarta = async (req, res) => {
   }
 };
 
-export const updateCarta = async (req, res) => {
+export const updateUsuario = async (req, res) => {
   try {
     const { id } = req.params;
     const { tipo } = req.body;
