@@ -13,3 +13,12 @@ export const d = async (table, id_name, id, res) => {
         return res.status(500).json({ message: table + " " + id_name + " " + id });
     }
 }
+
+export const get = async (res, table) => {
+    try {
+        const [rows] = await pool.query("SELECT * FROM " + table);
+        res.json(rows);
+    } catch (error) {
+        return res.status(500).json({ message: "Something went wrong" });
+    }   
+};

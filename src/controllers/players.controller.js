@@ -1,12 +1,8 @@
 import { pool } from "../db.js";
+import { get } from "../crud/crud.js";
 
 export const getPlayers = async (req, res) => {
-  try {
-    const [rows] = await pool.query("SELECT * FROM player");
-    res.json(rows);
-  } catch (error) {
-    return res.status(500).json({ message: "Something goes wrong" });
-  }
+  return get(res, "Player");
 };
 
 export const getPlayer = async (req, res) => {
