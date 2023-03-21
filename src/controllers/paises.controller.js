@@ -1,40 +1,21 @@
 import { pool } from "../db.js";
-import { get } from "../crud/crud.js";
+import { getAll, get, delet } from "../crud/crud.js";
+
+const table_name = "Pais";
+const id_name = "id_pais";
 
 export const getPaises = async (req, res) => {
-  return get(res, "Pais");
+  return getAll(res, table_name);
 };
 
 export const getPais = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const [rows] = await pool.query("SELECT * FROM carta WHERE id_carta = ?", [
-      id,
-    ]);
-
-    if (rows.length <= 0) {
-      return res.status(404).json({ message: "Carta not found" });
-    }
-
-    res.json(rows[0]);
-  } catch (error) {
-    return res.status(500).json({ message: "Something went wrong" });
-  }
+  const { id } = req.params;
+  return get(res, table_name, id_name, id);
 };
 
 export const deletePais = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const [rows] = await pool.query("DELETE FROM carta WHERE id_carta = ?", [id]);
-
-    if (rows.affectedRows <= 0) {
-      return res.status(404).json({ message: "Carta not found" });
-    }
-
-    res.sendStatus(204);
-  } catch (error) {
-    return res.status(500).json({ message: "Something went wrong" });
-  }
+  const { id } = req.params;
+  return delet(res, table_name, id_name, id);
 };
 
 export const createPais = async (req, res) => {
