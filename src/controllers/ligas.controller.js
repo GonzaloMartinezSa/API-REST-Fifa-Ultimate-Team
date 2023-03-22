@@ -22,7 +22,7 @@ export const createLiga = async (req, res) => {
   try {
     const { nombre_liga } = req.body;
     const [rows] = await pool.query(
-      "INSERT INTO liga (nombre_liga) VALUES (?)", [nombre_liga]
+      `INSERT INTO ${table_name} (nombre_liga) VALUES (?)`, [nombre_liga]
     );
     res.status(201).json({ id: rows.insertId, nombre_liga });
   } catch (error) {
@@ -36,14 +36,14 @@ export const updateLiga = async (req, res) => {
     const { nombre_liga } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE liga SET nombre_liga = IFNULL(?, nombre_liga) WHERE id_liga = ?",
+      `UPDATE ${table_name} SET nombre_liga = IFNULL(?, nombre_liga) WHERE ${id_name} = ?`,
       [nombre_liga, id]
     );
 
     if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Liga not found" });
+      return res.status(404).json({ message: `${table_name} not found` });
 
-    const [rows] = await pool.query("SELECT * FROM liga WHERE id_liga = ?", [id]);
+    const [rows] = await pool.query(`SELECT * FROM ${table_name} WHERE ${id_name} = ?`, [id]);
 
     res.json(rows[0]);
   } catch (error) {

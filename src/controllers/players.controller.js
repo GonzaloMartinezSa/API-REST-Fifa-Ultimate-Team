@@ -22,7 +22,7 @@ export const createPlayer = async (req, res) => {
   try {
     const { first_name, last_name } = req.body;
     const [rows] = await pool.query(
-      "INSERT INTO player (first_name, last_name) VALUES (?, ?)",
+      `INSERT INTO ${table_name} (first_name, last_name) VALUES (?, ?)`,
       [first_name, last_name]
     );
     res.status(201).json({ id: rows.insertId, first_name, last_name });
@@ -37,16 +37,14 @@ export const updatePlayer = async (req, res) => {
     const { first_name, last_name } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE player SET first_name = IFNULL(?, first_name), last_name = IFNULL(?, last_name) WHERE id_player = ?",
+      `UPDATE ${table_name} SET first_name = IFNULL(?, first_name), last_name = IFNULL(?, last_name) WHERE ${id_name} = ?`,
       [first_name, last_name, id]
     );
 
     if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Player not found" });
+      return res.status(404).json({ message: `${table_name} not found` });
 
-    const [rows] = await pool.query("SELECT * FROM player WHERE id_player = ?", [
-      id,
-    ]);
+    const [rows] = await pool.query(`SELECT * FROM ${table_name} WHERE ${id_name} = ?`, [id]);
 
     res.json(rows[0]);
   } catch (error) {

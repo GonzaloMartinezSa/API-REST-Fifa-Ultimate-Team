@@ -61,11 +61,9 @@ export const updateCarta = async (req, res) => {
     );
 
     if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Tipo not found" });
+      return res.status(404).json({ message: `${table_name} not found` });
 
-    const [rows] = await pool.query("SELECT * FROM tipo WHERE id_tipo = ?", [
-      id,
-    ]);
+    const [rows] = await pool.query(`SELECT * FROM ${table_name} WHERE ${id_name} = ?`, [id]);
 
     res.json(rows[0]);
   } catch (error) {

@@ -36,14 +36,14 @@ export const updateEquipo = async (req, res) => {
     const { id_liga, nombre_equipo } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE equipo SET id_liga = IFNULL(?, id_liga), nombre_equipo = IFNULL(?, nombre_equipo) WHERE id_equipo = ?",
+      `UPDATE ${table_name} SET id_liga = IFNULL(?, id_liga), nombre_equipo = IFNULL(?, nombre_equipo) WHERE ${id_name} = ?`,
       [id_liga, nombre_equipo, id]
     );
 
     if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Equipo not found" });
+      return res.status(404).json({ message: `${table_name} not found` });
 
-    const [rows] = await pool.query("SELECT * FROM equipo WHERE id_equipo = ?", [id]);
+    const [rows] = await pool.query(`SELECT * FROM ${table_name} WHERE ${id_name} = ?`, [id]);
 
     res.json(rows[0]);
   } catch (error) {
