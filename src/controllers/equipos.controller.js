@@ -43,9 +43,7 @@ export const updateEquipo = async (req, res) => {
     if (result.affectedRows === 0)
       return res.status(404).json({ message: "Equipo not found" });
 
-    const [rows] = await pool.query("SELECT * FROM equipo WHERE id_equipo = ?", [
-      id,
-    ]);
+    const [rows] = await pool.query("SELECT * FROM equipo WHERE id_equipo = ?", [id]);
 
     res.json(rows[0]);
   } catch (error) {

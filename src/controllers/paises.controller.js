@@ -20,11 +20,11 @@ export const deletePais = async (req, res) => {
 
 export const createPais = async (req, res) => {
   try {
-    const { tipo } = req.body;
+    const { nombre_pais } = req.body;
     const [rows] = await pool.query(
-      "INSERT INTO Carta (tipo) VALUES (?)", [tipo]
+      "INSERT INTO pais (nombre_pais) VALUES (?)", [nombre_pais]
     );
-    res.status(201).json({ id: rows.insertId, tipo });
+    res.status(201).json({ id: rows.insertId, nombre_pais });
   } catch (error) {
     return res.status(500).json({ message: "Something went wrong" });
   }
@@ -33,19 +33,17 @@ export const createPais = async (req, res) => {
 export const updatePais = async (req, res) => {
   try {
     const { id } = req.params;
-    const { tipo } = req.body;
+    const { nombre_pais } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE tipo SET tipo = IFNULL(?, tipo) WHERE id_tipo = ?",
-      [tipo, id]
+      "UPDATE pais SET nombre_pais = IFNULL(?, nombre_pais) WHERE id_pais = ?",
+      [nombre_pais, id]
     );
 
     if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Tipo not found" });
+      return res.status(404).json({ message: "Pais not found" });
 
-    const [rows] = await pool.query("SELECT * FROM tipo WHERE id_tipo = ?", [
-      id,
-    ]);
+    const [rows] = await pool.query("SELECT * FROM pais WHERE id_pais = ?", [id]);
 
     res.json(rows[0]);
   } catch (error) {
