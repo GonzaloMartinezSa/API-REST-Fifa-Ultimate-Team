@@ -22,7 +22,7 @@ export const createPais = async (req, res) => {
   try {
     const { nombre_pais } = req.body;
     const [rows] = await pool.query(
-      "INSERT INTO pais (nombre_pais) VALUES (?)", [nombre_pais]
+      `INSERT INTO ${table_name} (nombre_pais) VALUES (?)`, [nombre_pais]
     );
     res.status(201).json({ id: rows.insertId, nombre_pais });
   } catch (error) {
@@ -36,14 +36,14 @@ export const updatePais = async (req, res) => {
     const { nombre_pais } = req.body;
 
     const [result] = await pool.query(
-      "UPDATE pais SET nombre_pais = IFNULL(?, nombre_pais) WHERE id_pais = ?",
+      `UPDATE ${table_name} SET nombre_pais = IFNULL(?, nombre_pais) WHERE ${id_name} = ?`,
       [nombre_pais, id]
     );
 
     if (result.affectedRows === 0)
-      return res.status(404).json({ message: "Pais not found" });
+      return res.status(404).json({ message: `${table_name} not found` });
 
-    const [rows] = await pool.query("SELECT * FROM pais WHERE id_pais = ?", [id]);
+    const [rows] = await pool.query(`SELECT * FROM ${table_name} WHERE ${id_name} = ?`, [id]);
 
     res.json(rows[0]);
   } catch (error) {

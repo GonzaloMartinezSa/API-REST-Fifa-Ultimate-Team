@@ -22,7 +22,7 @@ export const createEquipo = async (req, res) => {
   try {
     const { id_liga, nombre_equipo } = req.body;
     const [rows] = await pool.query(
-      "INSERT INTO Equipo (id_liga, nombre_equipo) VALUES (?,?)", [id_liga, nombre_equipo]
+      `INSERT INTO ${table_name} (id_liga, nombre_equipo) VALUES (?,?)`, [id_liga, nombre_equipo]
     );
     res.status(201).json({ id: rows.insertId, id_liga, nombre_equipo });
   } catch (error) {
