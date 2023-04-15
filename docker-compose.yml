@@ -5,6 +5,7 @@ services:
     image: mysql
     container_name: fifadb
     restart: always
+    #command: mysql -u 
     environment:
       MYSQL_ROOT_PASSWORD: mysql
       MYSQL_DATABASE: fifa
@@ -14,4 +15,13 @@ services:
       - 3306:3306
     volumes:
       - ./db/:/docker-entrypoint-initdb.d/
+  app:
+    build: .
+    command: npm run start
+    volumes: 
+      - ./:/code
+    ports: 
+      - 3000:3000
+    depends_on: 
+      - db
     
