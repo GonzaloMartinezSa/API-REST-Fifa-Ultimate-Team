@@ -1,16 +1,27 @@
 import app from '../src/app.js';
 import request from 'supertest';
-import { pool } from "../src/db";
+import { setupTest, teardownTest, readSQLfILE } from "./tests.setup.js";
+
+readSQLfILE();
+
+beforeEach(async () => {
+  await setupTest();
+});
+
+afterEach(async () => {
+  await teardownTest();
+});
+
 
 describe('Players', () => {
 
-  beforeEach(async ()=> {
-    await pool.query("DELETE FROM Player");
-  })
+  // beforeEach(async ()=> {
+  //   await pool.query("DELETE FROM Player");
+  // })
 
-  afterAll(async () => {
-    await pool.end();
-  });
+  // afterAll(async () => {
+  //   await pool.end();
+  // });
 
   test('puedo crear un jugador', async () => {
     const res = await request(app).post('/api/players').send({
