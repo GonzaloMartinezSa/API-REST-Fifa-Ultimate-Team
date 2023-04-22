@@ -15,15 +15,17 @@ Por si quieren pegarle una mirada, acá está el actual:
 ![FUT_DER](/diagrams/FUT_DER.jpg?raw=true)
 
 
-### Instalación
+### Cómo usar
 
 ```
+install docker
 git clone https://github.com/GonzaloMartinezSa/API-REST-Fifa-Ultimate-Team
 cd API-REST-Fifa-Ultimate-Team
+create a .env at the project´s root, with the following variables: PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT
 docker-compose up
-npm install
-npm run dev
 ```
+
+Now there should be a nodejs api running on your machine's http://localhost:3000/
 
 ### TODO
 
