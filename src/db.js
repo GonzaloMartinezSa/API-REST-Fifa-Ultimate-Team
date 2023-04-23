@@ -3,6 +3,8 @@ import config_dev from "./configs/config.dev.js";
 import config_test from "./configs/config.test.js";
 import { createPool } from "mysql2/promise";
 import sqlite3 from "sqlite3";
+import MysqlAdapter from './adapters/mysql.adapter.js'
+import SqliteAdapter from './adapters/sqlite3.adapter.js'
 
 // import {
 //   DB_DATABASE,
@@ -39,9 +41,11 @@ switch (config.driver) {
       port: config.port,
       database: config.database,
     });
+    pool_exp = new MysqlAdapter(pool_exp);
     break;
   case 'sqlite3':
     pool_exp = new sqlite3.Database(config.filename);
+    pool_exp = new SqliteAdapter(pool_exp);
     break;
   default:
     throw new Error(`Unsupported database driver: ${config.driver}`);

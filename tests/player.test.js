@@ -1,15 +1,17 @@
 import app from '../src/app.js';
 import request from 'supertest';
-import { setupTest, teardownTest, readSQLfILE } from "./tests.setup.js";
+import { setupTest, teardownTest, readSQLfILE, dropTablesScript2 } from "./tests.setup.js";
 
-readSQLfILE();
+//readSQLfILE();
 
 beforeEach(async () => {
-  await setupTest();
+  //await setupTest();
+  await readSQLfILE();
 });
 
 afterEach(async () => {
-  await teardownTest();
+  //await teardownTest();
+  await dropTablesScript2();
 });
 
 
