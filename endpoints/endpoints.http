@@ -22,3 +22,54 @@ Content-Type: application/json
 {
   "tipo": "..."
 }
+
+### Paises
+
+GET http://localhost:3000/api/paises
+GET http://localhost:3000/api/paises/:id
+DELETE http://localhost:3000/api/paises/:id
+POST http://localhost:3000/api/paises
+PATCH http://localhost:3000/api/paises/:id
+Content-Type: application/json
+{
+  "nombre_pais": "..."
+}
+
+### Ligas
+
+GET http://localhost:3000/api/ligas
+GET http://localhost:3000/api/ligas/:id
+DELETE http://localhost:3000/api/ligas/:id
+POST http://localhost:3000/api/ligas
+PATCH http://localhost:3000/api/ligas/:id
+Content-Type: application/json
+{
+  "nombre_liga": "..."
+}
+
+### Equipos
+
+GET http://localhost:3000/api/equipos
+GET http://localhost:3000/api/equipos/:id
+DELETE http://localhost:3000/api/equipos/:id
+POST http://localhost:3000/api/equipos
+PATCH http://localhost:3000/api/equipos/:id
+Content-Type: application/json
+{
+  "nombre_equipo": "...",
+  "id_liga": "..."
+}
+
+### Usuarios
+
+### Aca probablemente haya que aplicar Autenticacion y Autorizacion
+
+GET http://localhost:3000/api/usuarios
+GET http://localhost:3000/api/usuarios/:id
+DELETE http://localhost:3000/api/usuarios/:id
+POST http://localhost:3000/api/usuarios
+PATCH http://localhost:3000/api/usuarios/:id
+Content-Type: application/json
+{
+  "fondos": "..."
+}
