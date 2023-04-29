@@ -1,4 +1,5 @@
-FROM node:16-alpine
+#FROM node:16-alpine
+FROM node:18.12.1
 
 # Include dev dependencies
 ENV NODE_ENV=dev
@@ -16,11 +17,11 @@ COPY . .
 # Install dependencies
 RUN npm install
 
-RUN ls -a
-RUN cd node_modules && ls -a
+#RUN ls -a
+#RUN cd node_modules && ls -a
 
 # Ports
-EXPOSE 8000
+#EXPOSE 3000
 
 # Run
-CMD ["npm","start"]
+#CMD ["npm","start"]

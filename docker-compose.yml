@@ -2,26 +2,56 @@ version: '3.8'
 
 services:
   db:
-    image: mysql
-    container_name: fifadb
-    restart: always
-    #command: mysql -u 
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql
-      MYSQL_DATABASE: fifa
-      MYSQL_USER: root
-      MYSQL_PASSWORD: mysql
+    image: mysql:8.0.29
+    container_name: fut-node-db
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    cap_add:
+      - SYS_NICE
+    volumes:
+      - ./db/database.sql:/docker-entrypoint-initdb.d/init.sql
+      - $HOME/database_fut:/var/lib/mysql
     ports:
       - 3306:3306
-    volumes:
-      - ./db/:/docker-entrypoint-initdb.d/
+    expose:
+      - 3306
+    environment:
+      #MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      #MYSQL_HOST: "${DB_HOST}"
+      #MYSQL_DATABASE: "${DB_DATABASE}"
+      #MYSQL_USER: "${DB_USER}"
+      #MYSQL_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: mysql
+      MYSQL_DATABASE: fifa
+      SERVICE_TAGS: prod
+    networks:
+      - internal-net
+  
   app:
     build: .
-    command: npm run start
+    image: fut-node-app:1.0.0
+    command: npm run dev
     volumes: 
-      - ./:/code
+      - ./src:/code/src
     ports: 
       - 3000:3000
+    expose:
+      - 3000
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_USER: admin
+      DB_PASSWORD: 'mysql'
+      DB_DATABASE: fifa
+      DB_PORT: 3306
     depends_on: 
       - db
-    
+    networks:
+      - internal-net
+      
+networks:
+  internal-net:
+    driver: bridge
+
