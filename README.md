@@ -18,14 +18,14 @@ Por si quieren pegarle una mirada, acá está el actual:
 ### Cómo usar
 
 ```
-install docker
-git clone https://github.com/GonzaloMartinezSa/API-REST-Fifa-Ultimate-Team
-cd API-REST-Fifa-Ultimate-Team
-create a .env at the project´s root, with the following variables: PORT, DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_PORT
-docker-compose up
+- install docker
+- git clone https://github.com/GonzaloMartinezSa/nodejs-fut-api-rest
+- cd nodejs-fut-api-rest
+(opcional) crear un .env en el root del proyecto, con las variables de entrono que aparecen en el docker-compose.yml
+- docker-compose up
 ```
 
-Now there should be a nodejs api running on your machine's http://localhost:3000/
+Ahora está corriendo la aplicación en http://localhost:3000/api
 
 ### TODO
 
