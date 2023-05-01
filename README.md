@@ -1,4 +1,4 @@
-# FIFA ULTIMATE TEAM - API REST - NODEJS & MYSQL PROJECT
+# FUT - API REST - NODEJS & MYSQL PROJECT
 
 La idea es modelar el sistema de cartas y de mercado de FUT y exponerlo mediante una API REST.
 
